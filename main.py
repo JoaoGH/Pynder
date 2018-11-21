@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from tkinter import *
+import GlobalVariable
+
 janela = Tk()
 janela.title("Pynder")
 janela.geometry("400x700")
