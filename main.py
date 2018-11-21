@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from tkinter import *
-import GlobalVariable
+from GlobalVariable import GlobalVariable
+from fase1 import fase1
 
 janela = Tk()
 janela.title("Pynder")
@@ -12,7 +13,9 @@ fontePequena = ('',15)
 
 
 def login():
-    print(nome.get())
+    g = GlobalVariable("","")
+    g.setNome(nome.get())
+    fase1(g.getNome())
 
 lb = Label(janela, text="Bem vindo", font=fontGrande).place(x=125, y=100)
 lb = Label(janela, text="Nome:", font=fontePequena).place(x=80, y=300)
