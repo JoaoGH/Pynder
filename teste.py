@@ -8,10 +8,17 @@ input_field = Entry(janela, text=input_user)
 input_field.pack(side=BOTTOM, fill=X)
 
 
+fontePequena = ('', 15)
 def enter_pressed(event):
     input_get = "Você: "+input_field.get()
     chat.insert(END, str(input_get))
+    chat.insert(END, "")
+
+    chat.insert(END, "Ariane: Let's go fuck!")
+    chat.itemconfig(END, fg="red")
+    chat.insert(END, "")
     input_user.set('')
+    chat.yview('end')
     return "break"
 
 frame = Frame(janela, width=400, height=700)
