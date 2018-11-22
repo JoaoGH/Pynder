@@ -15,10 +15,17 @@ fontGrande = ('',30)
 fontePequena = ('',15)
 
 def falar():
-    recognizer = sr.Recognizer()
+    microfone = sr.Recognizer()
     with sr.Microphone() as source:
-        audio = recognizer.listen(source)
-        print(recognizer.recognize_sphinx(audio))
+        microfone.adjust_for_ambient_noise(source)
+        print("Diga alguma coisa: ")
+        audio = microfone.listen(source)
+    try:
+        frase = microfone.recognize_sphinx(audio,language='pt-BR')
+        print("Você disse: " + frase)
+    except sr.UnknownValueError:
+        print("Não entendi")
+    return frase
 
 def login():
     g = GlobalVariable("","")
