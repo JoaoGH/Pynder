@@ -8,6 +8,7 @@ class jogo():
         janela.title("Pynder")
         janela.geometry("400x700")
         texto = "Olá "+nome+ ", Turu bom?"
-        en.say(texto)
         Label(janela, text=texto).place(x=100,y=100)
+        en.say(texto)
         janela.mainloop()
+        en.runAndWait()
