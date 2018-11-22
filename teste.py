@@ -8,7 +8,6 @@ input_field = Entry(janela, text=input_user)
 input_field.pack(side=BOTTOM, fill=X)
 
 
-fontePequena = ('', 15)
 def enter_pressed(event):
     input_get = "Você: "+input_field.get()
     chat.insert(END, str(input_get))
