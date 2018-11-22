@@ -1,5 +1,6 @@
 # python 3.7.1
 # -*- coding: utf-8 -*-
+import random
 from tkinter import *
 from GlobalVariable import GlobalVariable
 from jogo import jogo
@@ -22,6 +23,13 @@ def falar():
 def login():
     g = GlobalVariable("","")
     g.setNome(nome.get())
+    # p=random.randrange(1, 4)
+    # if(p==1):
+    #     ##daniela
+    # elif(p==2):
+    #     ##laura
+    # else:
+    #     ##sofia
     jogo(g.getNome())
 
 lb = Label(janela, text="Bem vindo", font=fontGrande).place(x=125, y=100)

@@ -5,6 +5,6 @@ class fase1():
         janela = Tk()
         janela.title("Pynder")
         janela.geometry("400x700")
-        texto = "Olá "+nome+ ", Turu bom?"
+        texto = "Olá "+nome+ ", Tqqquru bom?"
         Label(janela, text=texto).place(x=100,y=100)
         janela.mainloop()
