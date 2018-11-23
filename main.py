@@ -17,7 +17,7 @@ fontePequena = ('',15)
 
 def falar():
     engine = pyttsx3.init()
-    engine.say("Diga alguma coisa")
+    engine.say("Qual seu nome?")
     microfone = sr.Recognizer()
     with sr.Microphone() as source:
         microfone.adjust_for_ambient_noise(source)
@@ -28,8 +28,8 @@ def falar():
         frase = microfone.recognize_google(audio,language='pt-BR')
         nome.insert(0,frase)
     except sr.UnknownValueError:
-        print("Não entendi")
-    return frase
+        engine.say("Desculpe! Não consegui te entender")
+        engine.runAndWait()
 
 def login():
     g = GlobalVariable("","")
@@ -46,7 +46,7 @@ def login():
 
 lb = Label(janela, text="Bem vindo", font=fontGrande).place(x=125, y=100)
 lb = Label(janela, text="Nome:", font=fontePequena).place(x=65, y=300)
-nome = Entry(janela, width=15, font=fontePequena)
+nome = Entry(janela, width=15, font=fontePequena, fg='blue')
 nome.place(x=125, y=300)
 voice = Button (janela, text="Falar", command=falar)
 voice.place(x=320, y=300)

@@ -1,5 +1,6 @@
 from GlobalVariable import GlobalVariable
 from tkinter import *
+from time import *
 class jogo():
     def __init__(self, nome):
         # janela = Tk()
