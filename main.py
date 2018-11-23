@@ -5,6 +5,7 @@ from tkinter import *
 from GlobalVariable import GlobalVariable
 from jogo import jogo
 import speech_recognition as sr
+import pyttsx3
 
 janela = Tk()
 janela.title("Pynder")
@@ -38,6 +39,7 @@ def login():
     # else:
     #     ##sofia
     jogo(g.getNome())
+
 
 lb = Label(janela, text="Bem vindo", font=fontGrande).place(x=125, y=100)
 lb = Label(janela, text="Nome:", font=fontePequena).place(x=80, y=300)
