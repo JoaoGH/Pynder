@@ -22,8 +22,8 @@ def falar():
         print("Diga alguma coisa: ")
         audio = microfone.listen(source)
     try:
-        frase = microfone.recognize_sphinx(audio,language='pt-BR')
-        print("Você disse: " + frase)
+        frase = microfone.recognize_google(audio,language='pt-BR')
+        nome.insert(0,frase)
     except sr.UnknownValueError:
         print("Não entendi")
     return frase
