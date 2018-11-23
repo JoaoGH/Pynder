@@ -16,10 +16,13 @@ fontGrande = ('',30)
 fontePequena = ('',15)
 
 def falar():
+    engine = pyttsx3.init()
+    engine.say("Diga alguma coisa")
     microfone = sr.Recognizer()
     with sr.Microphone() as source:
         microfone.adjust_for_ambient_noise(source)
-        print("Diga alguma coisa: ")
+        engine.runAndWait()
+        # print("Diga alguma coisa: ")
         audio = microfone.listen(source)
     try:
         frase = microfone.recognize_google(audio,language='pt-BR')
@@ -42,11 +45,11 @@ def login():
 
 
 lb = Label(janela, text="Bem vindo", font=fontGrande).place(x=125, y=100)
-lb = Label(janela, text="Nome:", font=fontePequena).place(x=80, y=300)
+lb = Label(janela, text="Nome:", font=fontePequena).place(x=65, y=300)
 nome = Entry(janela, width=15, font=fontePequena)
-nome.place(x=150, y=300)
+nome.place(x=125, y=300)
 voice = Button (janela, text="Falar", command=falar)
-voice.place(x=300, y=300)
+voice.place(x=320, y=300)
 bt = Button (janela, text="Entrar", font=fontePequena, command=login)
 bt.place(x=180, y=500)
 
