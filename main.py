@@ -26,7 +26,7 @@ def falar():
         audio = microfone.listen(source)
     try:
         frase = microfone.recognize_google(audio,language='pt-BR')
-        nome.insert(0,frase)
+        nome.insert(0)
     except sr.UnknownValueError:
         engine.say("Desculpe! Não consegui te entender")
         engine.runAndWait()
@@ -41,7 +41,7 @@ def login():
     #     ##laura
     # else:
     #     ##sofia
-    jogo(g.getNome())
+    jogo(g.getNome(),0,0)
 
 
 lb = Label(janela, text="Bem vindo", font=fontGrande).place(x=125, y=100)
