@@ -32,7 +32,7 @@ def falar():
         engine.runAndWait()
 
 def login():
-    g = GlobalVariable("","")
+    g = GlobalVariable("",0,"")
     g.setNome(nome.get())
     # p=random.randrange(1, 4)
     # if(p==1):
@@ -43,7 +43,7 @@ def login():
     #     ##sofia
     # print(g.getNome())
     # jogo(g.getNome(),0,0)
-    jogo(0,0)
+    jogo(g.getNome(),0,0)
 
 
 lb = Label(janela, text="Bem vindo", font=fontGrande).place(x=125, y=100)

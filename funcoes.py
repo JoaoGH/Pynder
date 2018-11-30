@@ -1,10 +1,10 @@
 from pymysql import *
-import GlobalVariable
+from GlobalVariable import GlobalVariable
 
-def salvaScore():
+def salvaScore(nome,score,fim):
     con = connect("localhost", "root", "", "Pynder")
     cur = con.cursor()
-    sql = "INSERT INTO `score`(`nome`, `score`) VALUES (%s,%s)"
-    val = (GlobalVariable.getNome(), GlobalVariable.getScore())
+    sql = "INSERT INTO score(nome, score, fim ) VALUES (%s,%s,%s)"
+    val = (nome, score, fim)
     cur.execute(sql,val)
 

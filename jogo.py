@@ -1,20 +1,43 @@
 from GlobalVariable import GlobalVariable
+from funcoes import salvaScore
 from tkinter import *
 from time import *
+import speech_recognition as sr
+import pyttsx3
 import random
 class jogo():
-    def __init__(self, jogada, pont):
+    
+
+    def __init__(self, nome ,jogada, pont):
         super().__init__()
+        def falar():
+            engine = pyttsx3.init()
+            engine.say("Qual das opções?")
+            microfone = sr.Recognizer()
+            with sr.Microphone() as source:
+                microfone.adjust_for_ambient_noise(source)
+                engine.runAndWait()
+                # print("Diga alguma coisa: ")
+                audio = microfone.listen(source)
+            try:
+                frase = microfone.recognize_google(audio,language='pt-BR')
+                input_user.insert(0,frase)
+            except sr.UnknownValueError:
+                engine.say("Desculpe! Não consegui te entender")
+                engine.runAndWait()
+        g=GlobalVariable(nome,0,"")
         self.jogada=jogada
         self.pont=pont
         janela = Tk()
         janela.title("Pynder")
         janela.geometry("400x700")
         input_user = Entry(janela, width=15)
+        btnFalar = Button(janela, text="Falar", command=falar)
+        btnFalar.pack(side=BOTTOM, fill=X)
         input_user.pack(side=BOTTOM, fill=X)
         input_field = Label(janela, text="1. Olá, tudo e contigo? \n2. Suavo e tu? \n3. Melhor agora gostosa kkj \n", height=5)
         input_field.pack(side=BOTTOM, fill=X)
-
+        
         def enter_pressed(event):
             ela=""
             ela1=""
@@ -81,8 +104,10 @@ class jogo():
                     chat.itemconfig(END, fg="red")
                     chat.insert(END, "")
                     if(ela=="Você foi bloqueado"):
-                        sleep(3)
-                        exit(0)
+                        g.setFim("n")
+                        g.setScore(self.pont)
+                        salvaScore(g.getNome(), g.getScore(), g.getFim())
+                        input_user.config(state='disabled')
                     elif(ela=="Adoro, toco piano e curto todos os gêneros. E você?"):
                         texto="1. Nossa que legal, acho foda quem toca piano\n 2. Não curto música\n 3. Um ou dois gêneros"
                     else:
@@ -203,7 +228,12 @@ class jogo():
                     tu="Opção Inválida"
                 if(tu!="opc invalida"):
                     if(ela=="KKKKKJ Block"):
-                        exit()
+                        chat.insert(END, "Ariel: " + ela)
+                        chat.itemconfig(END, fg="red")
+                        g.setFim("n")
+                        g.setScore(self.pont)
+                        salvaScore(g.getNome(), g.getScore(), g.getFim())
+                        input_user.config(state='disabled')
                     ela1="Você trabalha com o que?"
                     input_get = "Você: " + tu
                     chat.insert(END, str(input_get))
@@ -235,7 +265,12 @@ class jogo():
                     tu="Opção Inválida"
                 if(tu!="opc invalida"):
                     if(ela=="¬¬ babaquinha."):
-                        exit()
+                        chat.insert(END, "Ariel: " + ela)
+                        chat.itemconfig(END, fg="red")
+                        g.setFim("n")
+                        g.setScore(self.pont)
+                        salvaScore(g.getNome(), g.getScore(), g.getFim())
+                        input_user.config(state='disabled')
                     ela1="Sou enfermeira"
                     input_get = "Você: " + tu
                     chat.insert(END, str(input_get))
@@ -264,7 +299,12 @@ class jogo():
                     tu="Opção Inválida"
                 if(tu!="opc invalida"):
                     if(ela=="Tem suas vantagens"):
-                        exit()
+                        chat.insert(END, "Ariel: " + ela)
+                        chat.itemconfig(END, fg="red")
+                        g.setFim("n")
+                        g.setScore(self.pont)
+                        salvaScore(g.getNome(), g.getScore(), g.getFim())
+                        input_user.config(state='disabled')
                     input_get = "Você: " + tu
                     chat.insert(END, str(input_get))
                     chat.insert(END, "")
@@ -387,11 +427,16 @@ class jogo():
                     if(sair=="gg"):
                         ela="Me pega as 19h no seguinte endereço"
                         ela1="Rua dos Bobos, nº 0"
+                        ela2="Sim"
                         texto="Você conseguiu sair com Ariel."
+                        
+                        g.setFim("s")
                     else:
                         ela="Não"
                         ela1="Tchau"
+                        ela2="Ok"
                         texto="Você não conseguiu sair com Ariel."
+                        g.setFim("n")
                 elif(opc=='2'):
                     tu="Nice job"
                     tu2=""
@@ -400,16 +445,20 @@ class jogo():
                         ela1="Vamos sair pra comer algo?"
                         ela2="Sim"
                         texto="Você conseguiu sair com Ariel."
+                        g.setFim("s")
                     else:
                         ela="vou indo então,"
                         ela1="tchau"
                         texto="Você não conseguiu sair com Ariel."
+                        g.setFim("n")
+
                 else:
                     tu="Opção Inválida"
                 if(tu!="Opção Inválida"):
                     input_get = "Você: " + tu
                     chat.insert(END, str(input_get))
                     chat.insert(END, tu2)
+                    chat.insert(END, "")
                     chat.insert(END, "Ariel: " + ela)
                     chat.itemconfig(END, fg="red")
                     chat.insert(END, ela1)
@@ -420,6 +469,10 @@ class jogo():
                     input_user.delete(0, END)
                     input_field['text']=texto
                     chat.yview('end')
+                    g.setScore(int(self.pont))
+                    print(self.pont)
+                    print(g.getScore())
+                    salvaScore(g.getNome(), g.getScore(), g.getFim())
             self.jogada=self.jogada+1
             print(self.pont)
             return "break"
@@ -434,7 +487,7 @@ class jogo():
         scrollbar.pack(side=RIGHT, fill=Y)
         chat.pack(side=LEFT, fill=BOTH, expand=1)
 
-        chat.insert(END, "Ariel: Olá! Turu bom?")
+        chat.insert(END, "Ariel: Olá, "+str(g.getNome())+" Turu bom?")
         chat.itemconfig(END, fg="red")
         chat.insert(END, "")
         input_user.bind("<Return>", enter_pressed)
